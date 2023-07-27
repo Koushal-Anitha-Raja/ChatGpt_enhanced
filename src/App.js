@@ -1,7 +1,15 @@
 import "./App.css";
 import "./Normal.css";
-
+import { useState } from "react";
 function App() {
+  const [input, setInput] = useState("");
+  const [chatlog, setChatlog] = useState([]);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setChatlog([...chatlog, { user: "me", message: `${input}` }]);
+    setInput("");
+  }
   return (
     <div className="App">
       <aside className="sidemenu">
@@ -11,13 +19,9 @@ function App() {
       </aside>
       <section className="chatbox">
         <div className="chat-log">
-          <div className="chat-message">
-            {" "}
-            <div className="chat-message-center">
-              <div className="avatar"> </div>
-              <div className="message">Hello world</div>
-            </div>
-          </div>
+          {chatlog.map((message, index) => {
+            return <ChatMessage key={index} message={message} />;
+          })}
           <div className="chat-message chatgpt">
             {" "}
             <div className="chat-message-center">
@@ -46,15 +50,29 @@ function App() {
           </div>
         </div>
         <div className="chat-input-holder">
-          <textarea
-            className="chat-input-textarea"
-            placeholder="Type your message here..."
-            rows="1"
-          ></textarea>
+          <form onSubmit={handleSubmit}>
+            <input
+              className="chat-input-textarea"
+              placeholder="Type your message here..."
+              rows="1"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+            ></input>
+          </form>
         </div>
       </section>
     </div>
   );
 }
 
+const ChatMessage = ({ message }) => {
+  return (
+    <div className="chat-message">
+      <div className="chat-message-center">
+        <div className="avatar"> </div>
+        <div className="message">{message.message}</div>
+      </div>
+    </div>
+  );
+};
 export default App;
