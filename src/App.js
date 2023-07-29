@@ -3,12 +3,34 @@ import "./Normal.css";
 import { useState } from "react";
 function App() {
   const [input, setInput] = useState("");
-  const [chatlog, setChatlog] = useState([]);
+  const [chatlog, setChatlog] = useState([
+    {
+      user: "gpt",
+      message: "how can i help you today?",
+    },
+    {
+      user: "me",
+      message: "I got the first message today",
+    },
+  ]);
 
   async function handleSubmit(e) {
     e.preventDefault();
     setChatlog([...chatlog, { user: "me", message: `${input}` }]);
     setInput("");
+
+    const response = await fetch("http://localhost:3000/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        message: chatlog.map((message) => message.message).join(""),
+      }),
+    });
+
+    const data = await response.json();
+    console.log(data);
   }
   return (
     <div className="App">
@@ -22,13 +44,6 @@ function App() {
           {chatlog.map((message, index) => {
             return <ChatMessage key={index} message={message} />;
           })}
-          <div className="chat-message chatgpt">
-            {" "}
-            <div className="chat-message-center">
-              <div className="avatar chatgpt"> </div>
-              <div className="message">I am an AI</div>
-            </div>
-          </div>
         </div>
         <div className="chat-input-holder">
           <form onSubmit={handleSubmit}>
