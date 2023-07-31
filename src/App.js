@@ -19,7 +19,7 @@ function App() {
     setChatlog([...chatlog, { user: "me", message: `${input}` }]);
     setInput("");
 
-    const response = await fetch("http://localhost:3000/", {
+    const response = await fetch("http://localhost:3080/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -30,7 +30,8 @@ function App() {
     });
 
     const data = await response.json();
-    console.log(data);
+    setChatlog([...chatlog, { user: "gpt", message: `${data.message}` }]);
+    console.log(data.message);
   }
   return (
     <div className="App">
