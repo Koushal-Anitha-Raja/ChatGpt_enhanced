@@ -13,11 +13,17 @@ function App() {
       message: "I got the first message today",
     },
   ]);
-
+  //clearing chatlogs
+  function clearChat() {
+    setChatlog([]);
+  }
   async function handleSubmit(e) {
     e.preventDefault();
-    setChatlog([...chatlog, { user: "me", message: `${input}` }]);
+    let chatLogNew = [...chatlog, { user: "me", message: `${input}` }];
     setInput("");
+    setChatlog(chatLogNew);
+
+    const messages = chatLogNew.map((message) => message.message).join("\n");
 
     const response = await fetch("http://localhost:3080/", {
       method: "POST",
@@ -25,18 +31,18 @@ function App() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        message: chatlog.map((message) => message.message).join(""),
+        message: messages,
       }),
     });
 
     const data = await response.json();
-    setChatlog([...chatlog, { user: "gpt", message: `${data.message}` }]);
+    setChatlog([...chatLogNew, { user: "gpt", message: `${data.message}` }]);
     console.log(data.message);
   }
   return (
     <div className="App">
       <aside className="sidemenu">
-        <div className="side-menu-button">
+        <div className="side-menu-button" onClick={clearChat}>
           <span> +</span>New chat
         </div>
       </aside>
