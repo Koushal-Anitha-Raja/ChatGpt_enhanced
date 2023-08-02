@@ -1,7 +1,13 @@
 import "./App.css";
 import "./Normal.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
 function App() {
+  useEffect(() => {
+    getEngines();
+  }, []);
+
+  const [models, setModels] = useState([]);
   const [input, setInput] = useState("");
   const [chatlog, setChatlog] = useState([
     {
@@ -18,13 +24,14 @@ function App() {
     setChatlog([]);
   }
 
-  // function getEngines() {
-  //   fetch("http://localhost:3080/models")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //     });
-  // }
+  function getEngines() {
+    fetch("http://localhost:3080/models")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.models.data);
+        setModels(data.models.data);
+      });
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -53,6 +60,15 @@ function App() {
       <aside className="sidemenu">
         <div className="side-menu-button" onClick={clearChat}>
           <span> +</span>New chat
+        </div>
+        <div className="models">
+          <select>
+            {models.map((model, index) => (
+              <option key={index} value={model.id}>
+                {model.id}
+              </option>
+            ))}
+          </select>
         </div>
       </aside>
       <section className="chatbox">
