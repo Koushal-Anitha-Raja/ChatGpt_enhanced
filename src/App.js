@@ -18,13 +18,13 @@ function App() {
     setChatlog([]);
   }
 
-  function getEngines() {
-    fetch("http://localhost:3080/models")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
-  }
+  // function getEngines() {
+  //   fetch("http://localhost:3080/models")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //     });
+  // }
 
   async function handleSubmit(e) {
     e.preventDefault();

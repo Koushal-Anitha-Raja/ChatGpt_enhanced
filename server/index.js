@@ -3,7 +3,7 @@ const { Configuration, OpenAIApi } = require("openai");
 const express = require("express");
 const configuration = new Configuration({
   organization: "org-EJnDeV7R7PvRafp2tARo0PuO",
-  apiKey: "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",
+  apiKey: "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",
 });
 const openai = new OpenAIApi(configuration);
 
@@ -33,14 +33,14 @@ app.post("/", async (req, res) => {
   });
 });
 
-app.get("/models", async (req, res) => {
-  const response = await openai.listEngines();
-  console.log(response);
+// app.get("/models", async (req, res) => {
+//   const response = await openai.listEngines();
+//   console.log(response);
 
-  res.json({
-    models: response.data,
-  });
-});
+//   res.json({
+//     models: response.data,
+//   });
+// });
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
