@@ -8,6 +8,7 @@ function App() {
   }, []);
 
   const [models, setModels] = useState([]);
+  const [currentmodel, setCurrentmodel] = useState("ada");
   const [input, setInput] = useState("");
   const [chatlog, setChatlog] = useState([
     {
@@ -19,6 +20,7 @@ function App() {
       message: "I got the first message today",
     },
   ]);
+
   //clearing chatlogs
   function clearChat() {
     setChatlog([]);
@@ -48,6 +50,7 @@ function App() {
       },
       body: JSON.stringify({
         message: messages,
+        currentmodel,
       }),
     });
 
@@ -62,7 +65,11 @@ function App() {
           <span> +</span>New chat
         </div>
         <div className="models">
-          <select>
+          <select
+            onChange={(e) => {
+              setCurrentmodel(e.target.value);
+            }}
+          >
             {models.map((model, index) => (
               <option key={index} value={model.id}>
                 {model.id}

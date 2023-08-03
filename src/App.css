@@ -14,9 +14,7 @@
   padding: 10px;
   background-color: #202123;
 }
-.models {
-  background-color: #202123;
-}
+
 .chatbox {
   flex: 1;
   background-color: #343541;
@@ -118,4 +116,12 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+select {
+  border-radius: 4px;
+  width: 100%;
+}
+.models {
+  margin: 30px auto;
 }
