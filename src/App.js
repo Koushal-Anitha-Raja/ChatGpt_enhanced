@@ -15,13 +15,13 @@ function App() {
       user: "gpt",
       message: "how can i help you today?",
       //time stamp properety to each message delivery
-      // timestamp: new Date().toISOString(),
+      timestamp: new Date().toISOString(),
     },
     {
       user: "me",
       message: "I got the first message today",
       //timestamp property to each message delivery
-      // timestamp: new Date().toISOString(),
+      timestamp: new Date().toISOString(),
     },
   ]);
 
@@ -105,10 +105,10 @@ function App() {
 }
 
 const ChatMessage = ({ message }) => {
-  // const date = new Date(message.timestamp);
-  // const formattedtime = date.toLocaleTimeString();
-  // const isuserTyping =
-  //   message.user === "gpt" && message.message === "how can i help you today? ";
+  const date = new Date(message.timestamp);
+  const formattedtime = date.toLocaleTimeString();
+  const isuserTyping =
+    message.user === "gpt" && message.message === "how can i help you today? ";
 
   return (
     <div className={`chat-message ${message.user === "gpt" && "chatgpt"}`}>

@@ -20,8 +20,8 @@ app.use(cors());
 
 app.post("/", async (req, res) => {
   const { message, currentModel } = req.body;
-  //console.log(currentModel, "currentmodel");
-  //console.log(message);
+  console.log(currentModel, "currentmodel");
+  console.log(message);
   const response = await openai.createCompletion({
     model: `${currentModel}`,
     prompt: `${message}`,
