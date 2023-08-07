@@ -8,16 +8,20 @@ function App() {
   }, []);
 
   const [models, setModels] = useState([]);
-  const [currentmodel, setCurrentmodel] = useState("ada");
+  const [currentModel, setCurrentModel] = useState("ada");
   const [input, setInput] = useState("");
   const [chatlog, setChatlog] = useState([
     {
       user: "gpt",
       message: "how can i help you today?",
+      //time stamp properety to each message delivery
+      // timestamp: new Date().toISOString(),
     },
     {
       user: "me",
       message: "I got the first message today",
+      //timestamp property to each message delivery
+      // timestamp: new Date().toISOString(),
     },
   ]);
 
@@ -30,8 +34,8 @@ function App() {
     fetch("http://localhost:3080/models")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.models.data);
-        setModels(data.models.data);
+        console.log(data.models);
+        setModels(data.models);
       });
   }
 
@@ -50,7 +54,7 @@ function App() {
       },
       body: JSON.stringify({
         message: messages,
-        currentmodel,
+        currentModel,
       }),
     });
 
@@ -67,11 +71,11 @@ function App() {
         <div className="models">
           <select
             onChange={(e) => {
-              setCurrentmodel(e.target.value);
+              setCurrentModel(e.target.value);
             }}
           >
             {models.map((model, index) => (
-              <option key={index} value={model.id}>
+              <option key={model.id} value={model.id}>
                 {model.id}
               </option>
             ))}
@@ -101,6 +105,11 @@ function App() {
 }
 
 const ChatMessage = ({ message }) => {
+  // const date = new Date(message.timestamp);
+  // const formattedtime = date.toLocaleTimeString();
+  // const isuserTyping =
+  //   message.user === "gpt" && message.message === "how can i help you today? ";
+
   return (
     <div className={`chat-message ${message.user === "gpt" && "chatgpt"}`}>
       <div className="chat-message-center">
@@ -126,6 +135,8 @@ const ChatMessage = ({ message }) => {
           )}
         </div>
         <div className="message">{message.message}</div>
+        {/* {isuserTyping && <div className="typing indicator">Typing...</div>}
+        <div className="timestamp">{formattedtime}</div> */}
       </div>
     </div>
   );

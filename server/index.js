@@ -3,7 +3,7 @@ const { Configuration, OpenAIApi } = require("openai");
 const express = require("express");
 const configuration = new Configuration({
   organization: "org-EJnDeV7R7PvRafp2tARo0PuO",
-  apiKey: "YOUR API KEY",
+  apiKey: "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",
 });
 const openai = new OpenAIApi(configuration);
 
@@ -19,16 +19,16 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.post("/", async (req, res) => {
-  const { message, currentmodel } = req.body;
-  console.log(currentmodel, "currentmodel");
-  console.log(message);
+  const { message, currentModel } = req.body;
+  //console.log(currentModel, "currentmodel");
+  //console.log(message);
   const response = await openai.createCompletion({
-    model: `${currentmodel}`,
+    model: `${currentModel}`,
     prompt: `${message}`,
     max_tokens: 100,
     temperature: 0.5,
   });
-  //console.log();
+
   res.json({
     message: response.data.choices[0].text,
   });
