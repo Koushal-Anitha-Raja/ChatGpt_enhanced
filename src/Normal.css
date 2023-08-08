@@ -39,22 +39,18 @@ h1 {
   font-size: 2em;
   margin: 0.67em 0;
 }
-
 hr {
   box-sizing: content-box; /* 1 */
   height: 0; /* 1 */
   overflow: visible; /* 2 */
 }
-
 pre {
   font-family: monospace, monospace; /* 1 */
   font-size: 1em; /* 2 */
 }
-
 a {
   background-color: transparent;
 }
-
 abbr[title] {
   border-bottom: none; /* 1 */
   text-decoration: underline; /* 2 */
@@ -106,9 +102,6 @@ sup {
   top: -0.5em;
 }
 
-/* Embedded content
-     ========================================================================== */
-
 /**
    * Remove the border on images inside links in IE 10.
    */
@@ -116,9 +109,6 @@ sup {
 img {
   border-style: none;
 }
-
-/* Forms
-     ========================================================================== */
 
 /**
    * 1. Change the font styles in all browsers.
